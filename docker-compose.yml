@@ -1,0 +1,37 @@
+version: '2'
+
+services:
+  drone:
+    image: drone/drone:0.4
+    ports:
+      - 8085:8000
+    networks:
+      - front
+      - back
+    env_file: ./drone/dronerc
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=root    
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=gogs 
+    networks:
+      - back
+  gogs:
+    image: gogs/gogs:0.9.13
+    ports:
+      - "9022:22"
+      - "9080:3000"
+    networks:
+      - front
+      - back
+    volumes:
+      - ./gogs:/data
+
+networks:
+  front:
+    driver: bridge
+  back:
+    driver: bridge

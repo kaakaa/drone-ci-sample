@@ -1,0 +1,5 @@
+REMOTE_DRIVER=gogs
+REMOTE_CONFIG=http://drone_gogs_1:3000?open=false
+
+DATABASE_DRIVER=postgres
+DATABASE_CONFIG=postgres://root:admin@drone_postgres_1:5432/postgres?sslmode=disable
